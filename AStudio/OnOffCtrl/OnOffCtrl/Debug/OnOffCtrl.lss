@@ -1,0 +1,1537 @@
+
+AVRASM ver. 2.2.7  D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\main.asm Fri Nov 15 18:03:19 2019
+
+[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATtiny_DFP\1.3.229\avrasm\inc\tn13adef.inc'
+D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\main.asm(13): Including file 'D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\macros.inc'
+D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\main.asm(14): Including file 'D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\constants_time.inc'
+D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\main.asm(15): Including file 'D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\var-offonctrl.inc'
+D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\main.asm(34): Including file 'D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\calls.asm'
+[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATtiny_DFP\1.3.229\avrasm\inc\tn13adef.inc'
+D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\main.asm(13): Including file 'D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\macros.inc'
+D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\main.asm(14): Including file 'D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\constants_time.inc'
+D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\main.asm(15): Including file 'D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\var-offonctrl.inc'
+D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\main.asm(34): Including file 'D:\Projects\AtmelStudio\OnOffCtrl\OnOffCtrl\calls.asm'
+                                 
+                                 ;
+                                 
+                                 ;***** Created: 2011-02-09 12:03 ******* Source: ATtiny13A.xml ***********
+                                 ;*************************************************************************
+                                 ;* A P P L I C A T I O N   N O T E   F O R   T H E   A V R   F A M I L Y
+                                 ;* 
+                                 ;* Number            : AVR000
+                                 ;* File Name         : "tn13Adef.inc"
+                                 ;* Title             : Register/Bit Definitions for the ATtiny13A
+                                 ;* Date              : 2011-02-09
+                                 ;* Version           : 2.35
+                                 ;* Support E-mail    : avr@atmel.com
+                                 ;* Target MCU        : ATtiny13A
+                                 ;* 
+                                 ;* DESCRIPTION
+                                 ;* When including this file in the assembly program file, all I/O register 
+                                 ;* names and I/O register bit names appearing in the data book can be used.
+                                 ;* In addition, the six registers forming the three data pointers X, Y and 
+                                 ;* Z have been assigned names XL - ZH. Highest RAM address for Internal 
+                                 ;* SRAM is also defined 
+                                 ;* 
+                                 ;* The Register names are represented by their hexadecimal address.
+                                 ;* 
+                                 ;* The Register Bit names are represented by their bit number (0-7).
+                                 ;* 
+                                 ;* Please observe the difference in using the bit names with instructions
+                                 ;* such as "sbr"/"cbr" (set/clear bit in register) and "sbrs"/"sbrc"
+                                 ;* (skip if bit in register set/cleared). The following example illustrates
+                                 ;* this:
+                                 ;* 
+                                 ;* in    r16,PORTB             ;read PORTB latch
+                                 ;* sbr   r16,(1<<PB6)+(1<<PB5) ;set PB6 and PB5 (use masks, not bit#)
+                                 ;* out   PORTB,r16             ;output to PORTB
+                                 ;* 
+                                 ;* in    r16,TIFR              ;read the Timer Interrupt Flag Register
+                                 ;* sbrc  r16,TOV0              ;test the overflow flag (use bit#)
+                                 ;* rjmp  TOV0_is_set           ;jump if set
+                                 ;* ...                         ;otherwise do something else
+                                 ;*************************************************************************
+                                 
+                                 #ifndef _TN13ADEF_INC_
+                                 #define _TN13ADEF_INC_
+                                 
+                                 
+                                 #pragma partinc 0
+                                 
+                                 ; ***** SPECIFY DEVICE ***************************************************
+                                 .device ATtiny13A
+                                 #pragma AVRPART ADMIN PART_NAME ATtiny13A
+                                 .equ	SIGNATURE_000	= 0x1e
+                                 .equ	SIGNATURE_001	= 0x90
+                                 .equ	SIGNATURE_002	= 0x07
+                                 
+                                 #pragma AVRPART CORE CORE_VERSION V2
+                                 #pragma AVRPART CORE NEW_INSTRUCTIONS lpm rd,z+
+                                 
+                                 
+                                 ; ***** I/O REGISTER DEFINITIONS *****************************************
+                                 ; NOTE:
+                                 ; Definitions marked "MEMORY MAPPED"are extended I/O ports
+                                 ; and cannot be used with IN/OUT instructions
+                                 .equ	SREG	= 0x3f
+                                 .equ	SPL	= 0x3d
+                                 .equ	GIMSK	= 0x3b
+                                 .equ	GIFR	= 0x3a
+                                 .equ	TIMSK0	= 0x39
+                                 .equ	TIFR0	= 0x38
+                                 .equ	SPMCSR	= 0x37
+                                 .equ	OCR0A	= 0x36
+                                 .equ	MCUCR	= 0x35
+                                 .equ	MCUSR	= 0x34
+                                 .equ	TCCR0B	= 0x33
+                                 .equ	TCNT0	= 0x32
+                                 .equ	OSCCAL	= 0x31
+                                 .equ	BODCR	= 0x30
+                                 .equ	TCCR0A	= 0x2f
+                                 .equ	DWDR	= 0x2e
+                                 .equ	OCR0B	= 0x29
+                                 .equ	GTCCR	= 0x28
+                                 .equ	CLKPR	= 0x26
+                                 .equ	PRR	= 0x25
+                                 .equ	WDTCR	= 0x21
+                                 .equ	EEAR	= 0x1e
+                                 .equ	EEDR	= 0x1d
+                                 .equ	EECR	= 0x1c
+                                 .equ	PORTB	= 0x18
+                                 .equ	DDRB	= 0x17
+                                 .equ	PINB	= 0x16
+                                 .equ	PCMSK	= 0x15
+                                 .equ	DIDR0	= 0x14
+                                 .equ	ACSR	= 0x08
+                                 .equ	ADMUX	= 0x07
+                                 .equ	ADCSRA	= 0x06
+                                 .equ	ADCH	= 0x05
+                                 .equ	ADCL	= 0x04
+                                 .equ	ADCSRB	= 0x03
+                                 
+                                 
+                                 ; ***** BIT DEFINITIONS **************************************************
+                                 
+                                 ; ***** AD_CONVERTER *****************
+                                 ; ADMUX - The ADC multiplexer Selection Register
+                                 .equ	MUX0	= 0	; Analog Channel and Gain Selection Bits
+                                 .equ	MUX1	= 1	; Analog Channel and Gain Selection Bits
+                                 .equ	ADLAR	= 5	; Left Adjust Result
+                                 .equ	REFS0	= 6	; Reference Selection Bit 0
+                                 
+                                 ; ADCSRA - The ADC Control and Status register
+                                 .equ	ADPS0	= 0	; ADC  Prescaler Select Bits
+                                 .equ	ADPS1	= 1	; ADC  Prescaler Select Bits
+                                 .equ	ADPS2	= 2	; ADC  Prescaler Select Bits
+                                 .equ	ADIE	= 3	; ADC Interrupt Enable
+                                 .equ	ADIF	= 4	; ADC Interrupt Flag
+                                 .equ	ADATE	= 5	; ADC Auto Trigger Enable
+                                 .equ	ADSC	= 6	; ADC Start Conversion
+                                 .equ	ADEN	= 7	; ADC Enable
+                                 
+                                 ; ADCH - ADC Data Register High Byte
+                                 .equ	ADCH0	= 0	; ADC Data Register High Byte Bit 0
+                                 .equ	ADCH1	= 1	; ADC Data Register High Byte Bit 1
+                                 .equ	ADCH2	= 2	; ADC Data Register High Byte Bit 2
+                                 .equ	ADCH3	= 3	; ADC Data Register High Byte Bit 3
+                                 .equ	ADCH4	= 4	; ADC Data Register High Byte Bit 4
+                                 .equ	ADCH5	= 5	; ADC Data Register High Byte Bit 5
+                                 .equ	ADCH6	= 6	; ADC Data Register High Byte Bit 6
+                                 .equ	ADCH7	= 7	; ADC Data Register High Byte Bit 7
+                                 
+                                 ; ADCL - ADC Data Register Low Byte
+                                 .equ	ADCL0	= 0	; ADC Data Register Low Byte Bit 0
+                                 .equ	ADCL1	= 1	; ADC Data Register Low Byte Bit 1
+                                 .equ	ADCL2	= 2	; ADC Data Register Low Byte Bit 2
+                                 .equ	ADCL3	= 3	; ADC Data Register Low Byte Bit 3
+                                 .equ	ADCL4	= 4	; ADC Data Register Low Byte Bit 4
+                                 .equ	ADCL5	= 5	; ADC Data Register Low Byte Bit 5
+                                 .equ	ADCL6	= 6	; ADC Data Register Low Byte Bit 6
+                                 .equ	ADCL7	= 7	; ADC Data Register Low Byte Bit 7
+                                 
+                                 ; ADCSRB - ADC Control and Status Register B
+                                 .equ	ADTS0	= 0	; ADC Auto Trigger Source 0
+                                 .equ	ADTS1	= 1	; ADC Auto Trigger Source 1
+                                 .equ	ADTS2	= 2	; ADC Auto Trigger Source 2
+                                 
+                                 ; DIDR0 - Digital Input Disable Register 0
+                                 .equ	ADC1D	= 2	; ADC2 Digital input Disable
+                                 .equ	ADC3D	= 3	; ADC3 Digital input Disable
+                                 .equ	ADC2D	= 4	; ADC2 Digital input Disable
+                                 .equ	ADC0D	= 5	; ADC0 Digital input Disable
+                                 
+                                 
+                                 ; ***** ANALOG_COMPARATOR ************
+                                 ; ADCSRB - ADC Control and Status Register B
+                                 .equ	ACME	= 6	; Analog Comparator Multiplexer Enable
+                                 
+                                 ; ACSR - Analog Comparator Control And Status Register
+                                 .equ	ACIS0	= 0	; Analog Comparator Interrupt Mode Select bit 0
+                                 .equ	ACIS1	= 1	; Analog Comparator Interrupt Mode Select bit 1
+                                 .equ	ACIE	= 3	; Analog Comparator Interrupt Enable
+                                 .equ	ACI	= 4	; Analog Comparator Interrupt Flag
+                                 .equ	ACO	= 5	; Analog Compare Output
+                                 .equ	ACBG	= 6	; Analog Comparator Bandgap Select
+                                 .equ	AINBG	= ACBG	; For compatibility
+                                 .equ	ACD	= 7	; Analog Comparator Disable
+                                 
+                                 ; DIDR0 - 
+                                 .equ	AIN0D	= 0	; AIN0 Digital Input Disable
+                                 .equ	AIN1D	= 1	; AIN1 Digital Input Disable
+                                 
+                                 
+                                 ; ***** EEPROM ***********************
+                                 ; EEAR - EEPROM Read/Write Access
+                                 .equ	EEARL	= EEAR	; For compatibility
+                                 .equ	EEAR0	= 0	; EEPROM Read/Write Access bit 0
+                                 .equ	EEAR1	= 1	; EEPROM Read/Write Access bit 1
+                                 .equ	EEAR2	= 2	; EEPROM Read/Write Access bit 2
+                                 .equ	EEAR3	= 3	; EEPROM Read/Write Access bit 3
+                                 .equ	EEAR4	= 4	; EEPROM Read/Write Access bit 4
+                                 .equ	EEAR5	= 5	; EEPROM Read/Write Access bit 5
+                                 
+                                 ; EEDR - EEPROM Data Register
+                                 .equ	EEDR0	= 0	; EEPROM Data Register bit 0
+                                 .equ	EEDR1	= 1	; EEPROM Data Register bit 1
+                                 .equ	EEDR2	= 2	; EEPROM Data Register bit 2
+                                 .equ	EEDR3	= 3	; EEPROM Data Register bit 3
+                                 .equ	EEDR4	= 4	; EEPROM Data Register bit 4
+                                 .equ	EEDR5	= 5	; EEPROM Data Register bit 5
+                                 .equ	EEDR6	= 6	; EEPROM Data Register bit 6
+                                 .equ	EEDR7	= 7	; EEPROM Data Register bit 7
+                                 
+                                 ; EECR - EEPROM Control Register
+                                 .equ	EERE	= 0	; EEPROM Read Enable
+                                 .equ	EEWE	= 1	; EEPROM Write Enable
+                                 .equ	EEPE	= EEWE	; For compatibility
+                                 .equ	EEMWE	= 2	; EEPROM Master Write Enable
+                                 .equ	EEMPE	= EEMWE	; For compatibility
+                                 .equ	EERIE	= 3	; EEProm Ready Interrupt Enable
+                                 .equ	EEPM0	= 4	; 
+                                 .equ	EEPM1	= 5	; 
+                                 
+                                 
+                                 ; ***** PORTB ************************
+                                 ; PORTB - Data Register, Port B
+                                 .equ	PORTB0	= 0	; 
+                                 .equ	PB0	= 0	; For compatibility
+                                 .equ	PORTB1	= 1	; 
+                                 .equ	PB1	= 1	; For compatibility
+                                 .equ	PORTB2	= 2	; 
+                                 .equ	PB2	= 2	; For compatibility
+                                 .equ	PORTB3	= 3	; 
+                                 .equ	PB3	= 3	; For compatibility
+                                 .equ	PORTB4	= 4	; 
+                                 .equ	PB4	= 4	; For compatibility
+                                 .equ	PORTB5	= 5	; 
+                                 .equ	PB5	= 5	; For compatibility
+                                 
+                                 ; DDRB - Data Direction Register, Port B
+                                 .equ	DDB0	= 0	; 
+                                 .equ	DDB1	= 1	; 
+                                 .equ	DDB2	= 2	; 
+                                 .equ	DDB3	= 3	; 
+                                 .equ	DDB4	= 4	; 
+                                 .equ	DDB5	= 5	; 
+                                 
+                                 ; PINB - Input Pins, Port B
+                                 .equ	PINB0	= 0	; 
+                                 .equ	PINB1	= 1	; 
+                                 .equ	PINB2	= 2	; 
+                                 .equ	PINB3	= 3	; 
+                                 .equ	PINB4	= 4	; 
+                                 .equ	PINB5	= 5	; 
+                                 
+                                 
+                                 ; ***** EXTERNAL_INTERRUPT ***********
+                                 ; MCUCR - MCU Control Register
+                                 .equ	ISC00	= 0	; Interrupt Sense Control 0 Bit 0
+                                 .equ	ISC01	= 1	; Interrupt Sense Control 0 Bit 1
+                                 
+                                 ; GIMSK - General Interrupt Mask Register
+                                 .equ	GICR	= GIMSK	; For compatibility
+                                 .equ	PCIE	= 5	; Pin Change Interrupt Enable
+                                 .equ	INT0	= 6	; External Interrupt Request 0 Enable
+                                 
+                                 ; GIFR - General Interrupt Flag register
+                                 .equ	PCIF	= 5	; Pin Change Interrupt Flag
+                                 .equ	INTF0	= 6	; External Interrupt Flag 0
+                                 
+                                 ; PCMSK - Pin Change Enable Mask
+                                 .equ	PCINT0	= 0	; Pin Change Enable Mask Bit 0
+                                 .equ	PCINT1	= 1	; Pin Change Enable Mask Bit 1
+                                 .equ	PCINT2	= 2	; Pin Change Enable Mask Bit 2
+                                 .equ	PCINT3	= 3	; Pin Change Enable Mask Bit 3
+                                 .equ	PCINT4	= 4	; Pin Change Enable Mask Bit 4
+                                 .equ	PCINT5	= 5	; Pin Change Enable Mask Bit 5
+                                 
+                                 
+                                 ; ***** TIMER_COUNTER_0 **************
+                                 ; TIMSK0 - Timer/Counter0 Interrupt Mask Register
+                                 .equ	TOIE0	= 1	; Timer/Counter0 Overflow Interrupt Enable
+                                 .equ	OCIE0A	= 2	; Timer/Counter0 Output Compare Match A Interrupt Enable
+                                 .equ	OCIE0B	= 3	; Timer/Counter0 Output Compare Match B Interrupt Enable
+                                 
+                                 ; TIFR0 - Timer/Counter0 Interrupt Flag register
+                                 .equ	TOV0	= 1	; Timer/Counter0 Overflow Flag
+                                 .equ	OCF0A	= 2	; Timer/Counter0 Output Compare Flag 0A
+                                 .equ	OCF0B	= 3	; Timer/Counter0 Output Compare Flag 0B
+                                 
+                                 ; OCR0A - Timer/Counter0 Output Compare Register
+                                 .equ	OCR0A_0	= 0	; 
+                                 .equ	OCR0A_1	= 1	; 
+                                 .equ	OCR0A_2	= 2	; 
+                                 .equ	OCR0A_3	= 3	; 
+                                 .equ	OCR0A_4	= 4	; 
+                                 .equ	OCR0A_5	= 5	; 
+                                 .equ	OCR0A_6	= 6	; 
+                                 .equ	OCR0A_7	= 7	; 
+                                 
+                                 ; TCCR0A - Timer/Counter  Control Register A
+                                 .equ	WGM00	= 0	; Waveform Generation Mode
+                                 .equ	WGM01	= 1	; Waveform Generation Mode
+                                 .equ	COM0B0	= 4	; Compare Match Output B Mode
+                                 .equ	COM0B1	= 5	; Compare Match Output B Mode
+                                 .equ	COM0A0	= 6	; Compare Match Output A Mode
+                                 .equ	COM0A1	= 7	; Compare Match Output A Mode
+                                 
+                                 ; TCNT0 - Timer/Counter0
+                                 .equ	TCNT0_0	= 0	; 
+                                 .equ	TCNT0_1	= 1	; 
+                                 .equ	TCNT0_2	= 2	; 
+                                 .equ	TCNT0_3	= 3	; 
+                                 .equ	TCNT0_4	= 4	; 
+                                 .equ	TCNT0_5	= 5	; 
+                                 .equ	TCNT0_6	= 6	; 
+                                 .equ	TCNT0_7	= 7	; 
+                                 
+                                 ; TCCR0B - Timer/Counter Control Register B
+                                 .equ	CS00	= 0	; Clock Select
+                                 .equ	CS01	= 1	; Clock Select
+                                 .equ	CS02	= 2	; Clock Select
+                                 .equ	WGM02	= 3	; Waveform Generation Mode
+                                 .equ	FOC0B	= 6	; Force Output Compare B
+                                 .equ	FOC0A	= 7	; Force Output Compare A
+                                 
+                                 ; OCR0B - Timer/Counter0 Output Compare Register
+                                 .equ	OCR0B_0	= 0	; 
+                                 .equ	OCR0B_1	= 1	; 
+                                 .equ	OCR0B_2	= 2	; 
+                                 .equ	OCR0B_3	= 3	; 
+                                 .equ	OCR0B_4	= 4	; 
+                                 .equ	OCR0B_5	= 5	; 
+                                 .equ	OCR0B_6	= 6	; 
+                                 .equ	OCR0B_7	= 7	; 
+                                 
+                                 ; GTCCR - General Timer Conuter Register
+                                 .equ	PSR10	= 0	; Prescaler Reset Timer/Counter0
+                                 .equ	TSM	= 7	; Timer/Counter Synchronization Mode
+                                 
+                                 
+                                 ; ***** WATCHDOG *********************
+                                 ; WDTCR - Watchdog Timer Control Register
+                                 .equ	WDP0	= 0	; Watch Dog Timer Prescaler bit 0
+                                 .equ	WDP1	= 1	; Watch Dog Timer Prescaler bit 1
+                                 .equ	WDP2	= 2	; Watch Dog Timer Prescaler bit 2
+                                 .equ	WDE	= 3	; Watch Dog Enable
+                                 .equ	WDCE	= 4	; Watchdog Change Enable
+                                 .equ	WDP3	= 5	; Watchdog Timer Prescaler Bit 3
+                                 .equ	WDTIE	= 6	; Watchdog Timeout Interrupt Enable
+                                 .equ	WDTIF	= 7	; Watchdog Timeout Interrupt Flag
+                                 
+                                 
+                                 ; ***** CPU **************************
+                                 ; SREG - Status Register
+                                 .equ	SREG_C	= 0	; Carry Flag
+                                 .equ	SREG_Z	= 1	; Zero Flag
+                                 .equ	SREG_N	= 2	; Negative Flag
+                                 .equ	SREG_V	= 3	; Two's Complement Overflow Flag
+                                 .equ	SREG_S	= 4	; Sign Bit
+                                 .equ	SREG_H	= 5	; Half Carry Flag
+                                 .equ	SREG_T	= 6	; Bit Copy Storage
+                                 .equ	SREG_I	= 7	; Global Interrupt Enable
+                                 
+                                 ; SPL - Stack Pointer Low Byte
+                                 .equ	SP0	= 0	; Stack Pointer Bit 0
+                                 .equ	SP1	= 1	; Stack Pointer Bit 1
+                                 .equ	SP2	= 2	; Stack Pointer Bit 2
+                                 .equ	SP3	= 3	; Stack Pointer Bit 3
+                                 .equ	SP4	= 4	; Stack Pointer Bit 4
+                                 .equ	SP5	= 5	; Stack Pointer Bit 5
+                                 .equ	SP6	= 6	; Stack Pointer Bit 6
+                                 .equ	SP7	= 7	; Stack Pointer Bit 7
+                                 
+                                 ; MCUCR - MCU Control Register
+                                 ;.equ	ISC00	= 0	; Interrupt Sense Control 0 bit 0
+                                 ;.equ	ISC01	= 1	; Interrupt Sense Control 0 bit 1
+                                 .equ	SM0	= 3	; Sleep Mode Select Bit 0
+                                 .equ	SM1	= 4	; Sleep Mode Select Bit 1
+                                 .equ	SE	= 5	; Sleep Enable
+                                 .equ	PUD	= 6	; Pull-up Disable
+                                 
+                                 ; MCUSR - MCU Status register
+                                 .equ	PORF	= 0	; Power-On Reset Flag
+                                 .equ	EXTRF	= 1	; External Reset Flag
+                                 .equ	BORF	= 2	; Brown-out Reset Flag
+                                 .equ	WDRF	= 3	; Watchdog Reset Flag
+                                 
+                                 ; OSCCAL - Oscillator Calibration Register
+                                 .equ	CAL0	= 0	; Oscillatro Calibration Value Bit 0
+                                 .equ	CAL1	= 1	; Oscillatro Calibration Value Bit 1
+                                 .equ	CAL2	= 2	; Oscillatro Calibration Value Bit 2
+                                 .equ	CAL3	= 3	; Oscillatro Calibration Value Bit 3
+                                 .equ	CAL4	= 4	; Oscillatro Calibration Value Bit 4
+                                 .equ	CAL5	= 5	; Oscillatro Calibration Value Bit 5
+                                 .equ	CAL6	= 6	; Oscillatro Calibration Value Bit 6
+                                 
+                                 ; CLKPR - Clock Prescale Register
+                                 .equ	CLKPS0	= 0	; Clock Prescaler Select Bit 0
+                                 .equ	CLKPS1	= 1	; Clock Prescaler Select Bit 1
+                                 .equ	CLKPS2	= 2	; Clock Prescaler Select Bit 2
+                                 .equ	CLKPS3	= 3	; Clock Prescaler Select Bit 3
+                                 .equ	CLKPCE	= 7	; Clock Prescaler Change Enable
+                                 
+                                 ; DWDR - Debug Wire Data Register
+                                 .equ	DWDR0	= 0	; Debug Wire Data Register Bit 0
+                                 .equ	DWDR1	= 1	; Debug Wire Data Register Bit 1
+                                 .equ	DWDR2	= 2	; Debug Wire Data Register Bit 2
+                                 .equ	DWDR3	= 3	; Debug Wire Data Register Bit 3
+                                 .equ	DWDR4	= 4	; Debug Wire Data Register Bit 4
+                                 .equ	DWDR5	= 5	; Debug Wire Data Register Bit 5
+                                 .equ	DWDR6	= 6	; Debug Wire Data Register Bit 6
+                                 .equ	DWDR7	= 7	; Debug Wire Data Register Bit 7
+                                 
+                                 ; SPMCSR - Store Program Memory Control and Status Register
+                                 .equ	SPMEN	= 0	; Store program Memory Enable
+                                 .equ	PGERS	= 1	; Page Erase
+                                 .equ	PGWRT	= 2	; Page Write
+                                 .equ	RFLB	= 3	; Read Fuse and Lock Bits
+                                 .equ	CTPB	= 4	; Clear Temporary Page Buffer
+                                 
+                                 ; PRR - Power Reduction Register
+                                 .equ	PRADC	= 0	; Power Reduction ADC
+                                 .equ	PRTIM0	= 1	; Power Reduction Timer/Counter0
+                                 
+                                 ; BODCR - BOD Control Register
+                                 .equ	BPDSE	= 0	; BOD Power-Down Sleep Enable
+                                 .equ	BPDS	= 1	; BOD Power-Down in Power-Down Sleep
+                                 
+                                 
+                                 
+                                 ; ***** LOCKSBITS ********************************************************
+                                 .equ	LB1	= 0	; Lockbit
+                                 .equ	LB2	= 1	; Lockbit
+                                 
+                                 
+                                 ; ***** FUSES ************************************************************
+                                 ; LOW fuse bits
+                                 .equ	CKSEL0	= 0	; Select Clock Source
+                                 .equ	CKSEL1	= 1	; Select Clock Source
+                                 .equ	SUT0	= 2	; Select start-up time
+                                 .equ	SUT1	= 3	; Select start-up time
+                                 .equ	CKDIV8	= 4	; Start up with system clock divided by 8
+                                 .equ	WDTON	= 5	; Watch dog timer always on
+                                 .equ	EESAVE	= 6	; Keep EEprom contents during chip erase
+                                 .equ	SPIEN	= 7	; SPI programming enable
+                                 
+                                 ; HIGH fuse bits
+                                 .equ	RSTDISBL	= 0	; Disable external reset
+                                 .equ	BODLEVEL0	= 1	; Enable BOD and select level
+                                 .equ	BODLEVEL1	= 2	; Enable BOD and select level
+                                 .equ	DWEN	= 3	; DebugWire Enable
+                                 .equ	SELFPRGEN	= 4	; Self Programming Enable
+                                 
+                                 
+                                 
+                                 ; ***** CPU REGISTER DEFINITIONS *****************************************
+                                 .def	XH	= r27
+                                 .def	XL	= r26
+                                 .def	YH	= r29
+                                 .def	YL	= r28
+                                 .def	ZH	= r31
+                                 .def	ZL	= r30
+                                 
+                                 
+                                 
+                                 ; ***** DATA MEMORY DECLARATIONS *****************************************
+                                 .equ	FLASHEND	= 0x01ff	; Note: Word address
+                                 .equ	IOEND	= 0x003f
+                                 .equ	SRAM_START	= 0x0060
+                                 .equ	SRAM_SIZE	= 64
+                                 .equ	RAMEND	= 0x009f
+                                 .equ	XRAMEND	= 0x0000
+                                 .equ	E2END	= 0x003f
+                                 .equ	EEPROMEND	= 0x003f
+                                 .equ	EEADRBITS	= 6
+                                 #pragma AVRPART MEMORY PROG_FLASH 1024
+                                 #pragma AVRPART MEMORY EEPROM 64
+                                 #pragma AVRPART MEMORY INT_SRAM SIZE 64
+                                 #pragma AVRPART MEMORY INT_SRAM START_ADDR 0x60
+                                 
+                                 
+                                 
+                                 ; ***** BOOTLOADER DECLARATIONS ******************************************
+                                 .equ	PAGESIZE	= 16
+                                 
+                                 
+                                 
+                                 ; ***** INTERRUPT VECTORS ************************************************
+                                 .equ	INT0addr	= 0x0001	; External Interrupt 0
+                                 .equ	PCI0addr	= 0x0002	; External Interrupt Request 0
+                                 .equ	OVF0addr	= 0x0003	; Timer/Counter0 Overflow
+                                 .equ	ERDYaddr	= 0x0004	; EEPROM Ready
+                                 .equ	ACIaddr	= 0x0005	; Analog Comparator
+                                 .equ	OC0Aaddr	= 0x0006	; Timer/Counter Compare Match A
+                                 .equ	OC0Baddr	= 0x0007	; Timer/Counter Compare Match B
+                                 .equ	WDTaddr	= 0x0008	; Watchdog Time-out
+                                 .equ	ADCCaddr	= 0x0009	; ADC Conversion Complete
+                                 
+                                 .equ	INT_VECTORS_SIZE	= 10	; size in words
+                                 
+                                 #endif  /* _TN13ADEF_INC_ */
+                                 
+                                 ; ***** END OF FILE ******************************************************
+                                 
+                                 ; OnOffCtrl.asm
+                                 ;
+                                 ; Created: 08.10.2019 18:17:14
+                                 ; Author : vp
+                                 ;
+                                 ;====================================================================
+                                 ;====================================================================
+                                 ;                       DEFINITIONS
+                                 ;====================================================================
+                                 ;.set _DEBUG_ = 1
+                                 
+                                 .INCLUDE "macros.inc"
+                                 
+                                  * macros.asm
+                                  *
+                                  *  Created: 30.10.2019 13:35:50
+                                  *   Author: vp
+                                  */ 
+                                 ;==================================================================
+                                 ;                   макрос _SET_TIMER_
+                                 ;==================================================================
+                                 ;   Задает время исполнения указанному таймеру
+                                 ; с возможностью отложенного или немедленного исполнения таймера.
+                                 ; при условии заданному разрешению прерывания от переполнения TCNT0
+                                 ; и общему разрешению прерываний
+                                 ;==================================================================
+                                 .MACRO _SET_TIMER_ 
+                                 ; Описание параметров макроса
+                                 ;@0 - имя структуры таймера (например - timer01), 
+                                 ;@1 - имя константы времени работы таймера (например - key_snd_time), 
+                                 ;@2 - регистр РОН указатель на @0 (например - X), 
+                                 ;@3 регистр РОН мл. байта @1 (например - r16),  
+                                 ;@4 регистр РОН ст. байта @1 (например - r17),  
+                                 ;@5 регистр РОН управления (например - r18 == 0 или != 0): 
+                                 ;   == 0 - запрет немедленного выполнения таймера; 
+                                 ;   != 0 - немедленный запуск таймера с новыми параметрами
+                                 ;==================================================================
+                                     ldi @2L, LOW(@0)  ; указать адрес в области таймеров на требуемый таймер
+                                     ldi @3, LOW(@1)   ; загрузить мл. байт константы параметра таймера
+                                     ldi @4, HIGH(@1)  ; загрузить ст. байт константы параметра таймера
+                                     tst @5
+                                     brne PC+7     ;brne _set_timer_start
+                                     ;=====================================================
+                                     ;   иницирование нового таймера со сбросом старого 
+                                     ;=====================================================
+                                     cli
+                                     st @2+, @5    ; обнулить флаг таймера - запрет немедленного выполнения таймера
+                                     st @2+, @3    ; инициализировать мл. байт значения таймера
+                                     st @2,  @4     ; инициализировать ст. байт значения таймера
+                                     sei
+                                     rjmp PC+7     ;rjmp _set_timer_return
+                                     ;=====================================================
+                                     ;           иницирование нового таймера 
+                                     ;        вместо уже отработавшего старого 
+                                     ;=====================================================
+                                 ;_set_timer_start:
+                                     adiw @2, 3
+                                     cli
+                                     st -@2, @4    ; инициализировать ст. байт значения таймера 
+                                     st -@2, @3    ; инициализировать мл. байт значения таймера 
+                                     st -@2, @5    ; установить флаг таймера - немедленный запуск таймера с новыми параметрами
+                                     sei
+                                 ;_set_timer_return:
+                                 .ENDMACRO
+                                 
+                                 ;==================================================================
+                                 ;                   макрос _OCR0B_On_
+                                 ;==================================================================
+                                 ;  подключение OCR0A к выводу
+                                 ;==================================================================
+                                 ; Описание параметров макроса
+                                 ; @0 - регистр РОН оператор регистра tccr0a  (например r16)
+                                 ; @1 - регистр РОН содержащий бит флага tccr0a, 
+                                 ;      подключающий OCR0B к выводу  (например r17)
+                                 ;==================================================================
+                                 .MACRO  _OCR0A_On_
+                                 	in  @0, tccr0a
+                                 	ldi @1, 0x40
+                                 	or @0, @1		; подключить OCR0A к выводу
+                                 	out tccr0a, @0	; OCR0B подключен к выводу
+                                 .ENDMACRO
+                                 
+                                 ;==================================================================
+                                 ;                   макрос _OCR0A_Off_
+                                 ;==================================================================
+                                 ;  отключение OCR0B от вывода
+                                 ;==================================================================
+                                 ; Описание параметров макроса
+                                 ; @0 - регистр РОН оператор регистра tccr0a  (например r16)
+                                 ; @1 - регистр РОН содержащий бит флага tccr0a, 
+                                 ;      отключающий OCR0B к выводу  (например r17)
+                                 ;==================================================================
+                                 .MACRO  _OCR0A_Off_
+                                 	in  @0, tccr0a
+                                 	ldi @1, 0xbf
+                                 	and @0, @1		; отключить OCR0A от вывода
+                                 	out tccr0a, @0	; OCR0B подключен к выводу
+                                 .ENDMACRO
+                                 
+                                 ;==================================================================
+                                 ;                   макрос _OCR0B_On_
+                                 ;==================================================================
+                                 ;  подключение OCR0B к выводу
+                                 ;==================================================================
+                                 ; Описание параметров макроса
+                                 ; @0 - регистр РОН оператор регистра tccr0a  (например r16)
+                                 ; @1 - регистр РОН содержащий бит флага tccr0a, 
+                                 ;      подключающий OCR0B к выводу  (например r17)
+                                 ;==================================================================
+                                 .MACRO  _OCR0B_On_
+                                 	in  r16, tccr0a
+                                 	ldi r17, 0x10
+                                 	or r16, r17		; подключить OCR0B к выводу
+                                 	out tccr0a, r16	; OCR0B подключен к выводу
+                                 .ENDMACRO
+                                 
+                                 ;==================================================================
+                                 ;                   макрос _OCR0B_Off_
+                                 ;==================================================================
+                                 ;  отключение OCR0B от вывода
+                                 ;==================================================================
+                                 ; Описание параметров макроса
+                                 ; @0 - регистр РОН оператор регистра tccr0a  (например r16)
+                                 ; @1 - регистр РОН содержащий бит флага tccr0a, 
+                                 ;      отключающий OCR0B к выводу  (например r17)
+                                 ;==================================================================
+                                 .MACRO  _OCR0B_Off_
+                                 	in  r16, tccr0a
+                                 	ldi r17, 0xef
+                                 	and r16, r17		; отключить OCR0B от вывода
+                                 	out tccr0a, r16	; OCR0B подключен к выводу
+                                 .ENDMACRO
+                                 
+                                 ;==================================================================
+                                 ;                   макрос _MODE_INT0_
+                                 ;==================================================================
+                                 ;   задается разрешение от внешнего прерывания INT0
+                                 ;==================================================================
+                                 ; Описание параметров макроса
+                                 ; @0 - регистр РОН (например r16)
+                                 ; @1 - регистр РОН оператор регистра mcucr (например r17)
+                                 ; @2 - номер режима INT0:
+                                 ;      0 - по низкому уровню
+                                 ;      1 - при любом изменении
+                                 ;      2 - при спаде
+                                 ;      3 - при фронте
+                                 ;==================================================================
+                                 .MACRO _MODE_INT0_
+                                     ldi @0, @2        ; @2 - режим прерывания от INT0 по нарастающему фронту
+                                     in @1, mcucr
+                                     or @1, @0
+                                     out mcucr, @1     ; устанавливается режим от внешнего прерывания INT0
+                                 .ENDMACRO
+                                 
+                                 ;==================================================================
+                                 ;                   макрос _SET_NUM_PCIE_
+                                 ;=====================================================
+                                 ;   задается номер прерывания PCIE
+                                 ;=====================================================
+                                 ; Описание параметров макроса
+                                 ; @0 - регистр РОН (например r16)
+                                 ; @1 - регистр РОН оператор регистра pcmsk (например r17)
+                                 ; @2 - номер PCIE:
+                                 ;      1 - PCI0
+                                 ;      2 - PCI1
+                                 ;      4 - PCI2
+                                 ;      8 - PCI3
+                                 ;   0x10 - PCI4
+                                 ;   0x20 - PCI5
+                                 ;==================================================================
+                                 .MACRO _SET_NUM_PCIE_
+                                     ldi @0, @2        ; @2 - задается номер прерывания PCINT
+                                     in @1, pcmsk
+                                     or @1, @0
+                                     out pcmsk, @1     ; устанавливается номер прерывания PCINT
+                                 .ENDMACRO
+                                 
+                                 ;==================================================================
+                                 ;                   макрос _EN_EXTINT_
+                                 ;==================================================================
+                                 ;   задается разрешение от внешнего прерывания INT0
+                                 ;==================================================================
+                                 ; Описание параметров макроса
+                                 ; @0 - регистр РОН (например r16)
+                                 ; @1 - регистр РОН оператор регистра gimsk (например r17)
+                                 ; @2 - флаги разрешенных прерываний:
+                                 ;       0x20 - PCIE
+                                 ;       0x40 - INT0
+                                 ;       0x60 - оба
+                                 ;==================================================================
+                                 .MACRO _EN_EXTINT_
+                                     ldi @0, @2        ; @2 биты прерываний разрешенных от ЕХТINT
+                                     in @1, gimsk
+                                     or @1, @0
+                                     out gimsk, @1     ; устанавливается разрешение от внешнего прерывания INT0
+                                     in @1, gifr
+                                     eor @1, @0
+                                     out gifr, @1      ; сброс флагов прерываний установленных ранее   
+                                 .ENDMACRO
+                                 
+                                 
+                                 ;==================================================================
+                                 ;                   макрос _DIS_EXTINT_
+                                 ;==================================================================
+                                 ;   задается запрет от внешнего прерывания INT0
+                                 ;==================================================================
+                                 ; Описание параметров макроса
+                                 ; @0 - регистр РОН (например r16)
+                                 ; @1 - регистр РОН оператор регистра gimsk (например r17)
+                                 ; @2 - флаги запрешенных прерываний:
+                                 ;       0x20 - PCIE
+                                 ;       0x40 - INT0
+                                 ;       0x60 - оба
+                                 ;==================================================================
+                                 .MACRO _DIS_EXTINT_
+                                     ldi @0, @2        ; @2 биты прерываний разрешенных от ЕХТINT
+                                     in @1, gimsk
+                                     eor @1, @0
+                                     out gimsk, @1     ; устанавливается разрешение от внешнего прерывания INT0
+                                 .ENDMACRO
+                                 .INCLUDE "constants_time.inc"
+                                 
+                                  * constants_time.asm
+                                  *
+                                  *  Created: 30.10.2019 13:46:15
+                                  *   Author: vp
+                                  */ 
+                                 ;====================================================================
+                                 ;                       CONSTANTS
+                                 ;====================================================================
+                                 .CSEG
+                                 ;частота TCNT0 = 2.34 - 2.48, а с учетом программного делителя fdel = 2,
+                                 ; Ftimer = 1.17 - 1.24 кГц => параметры времени программных таймеров необходимо увеличить, примерно, на 1.24.
+                                 .equ key_snd_time = 124 ;= 100 msec - время звукового импульса нажатия кнопки
+                                 .equ err_snd_time = 1240 ;= 1000 msec - время звукового импульса нажатия кнопки
+                                 .equ led_light_time = 620 ;= 500 msec - время светового импульса
+                                 .equ time_wait = 4960 ;= 4000 msec - время ожидания вкл/откл БП
+                                 .equ key_wait = 50 ;= 40 msec - время дребезга кнопки
+                                 .INCLUDE "var-offonctrl.inc"
+                                 
+                                  * var_offonctrl.asm
+                                  *
+                                  *  Created: 30.10.2019 13:48:31
+                                  *   Author: vp
+                                  */ 
+                                 ;====================================================================
+                                 ;                       VARIABLES
+                                 ;====================================================================
+                                 .DSEG
+                                 .ORG 0x60
+000060                           fdel:       .byte 1 ; +1 - флаг четного прерывания или делителя частоты: 0 - четный (пропуск счета); 1 - нечетный (счет)
+                                 ;==============================================================================================
+                                 ;                  таймер номер 1 (например для звука)
+                                 ;.ORG 0x61
+000061                           timer01:  .byte 3	; +0 - флаг таймера: 0 - неактивный; 1- активный
+                                 				    ; +1 - время работы таймера (мл. байт слова)
+                                 				    ; +2 - время работы таймера (ст. байт слова)
+                                 ;==============================================================================================
+                                 ;                  таймер номер 2 (например для мигания светодиода)
+                                 ;.ORG 0x64
+000064                           timer02:.byte 3	; +0 - флаг таймера: 0 - неактивный; 1- активный
+                                 				    ; +1 - время работы таймера (мл. байт слова)
+                                 				    ; +2 - время работы таймера (ст. байт слова)
+                                 ;==============================================================================================
+                                 ;                  таймер номер 3 (например для ожидания события)
+                                 ;.ORG 0x67
+000067                           timer03: .byte 3	; +0 - флаг таймера: 0 - неактивный; 1- активный
+                                 				    ; +1 - время работы таймера (мл. байт слова)
+                                 				    ; +2 - время работы таймера (ст. байт слова)
+                                 ;==============================================================================================
+                                 ;                  таймер номер Z (например для дребезга кнопки)
+                                 ;.ORG 0x?? - последняя запись структур таймера. Добавление записей таймеров должно осуществляться до этой записи
+00006a                           timer0Z:  .byte 3   ; +0 - флаг таймера: 0 - неактивный; 1- активный
+                                                     ; +1 - время работы таймера (мл. байт слова)
+                                                     ; +2 - время работы таймера (ст. байт слова)
+                                 ;==============================================================================================
+                                 ;                               Состояния и режимы
+                                 ;==============================================================================================
+                                 ;====================================================================
+                                 ; state |                       0 - отключен                        |
+                                 ;====================================================================
+                                 ; mode  | Готовность | Ожидание включения | Индикация неисправности |
+                                 ;       |  Ожидание  | (появление напряже-| (БП не запустился или   |
+                                 ;       |  кнопки    |  ния)              | самопроизвольно отключ. |
+                                 ;       |============================================================
+                                 ;       |     0      |         1          |          2              |
+                                 ;====================================================================
+                                 ; state |                       1 - включен                         |
+                                 ;====================================================================
+                                 ; mode  | Готовность | Ожидание отключения| Индикация неисправности |
+                                 ;       | Ожидание   |(пропадание напряже-| (БП не отключился)      |
+                                 ;       | кнопки     | ния)               |                         |
+                                 ;       |============================================================
+                                 ;       |    0       |         1          |          2              |
+                                 ;====================================================================
+00006d                           state:    .byte 1    ; состояние: 0 - отключен; 1 - включен
+00006e                           mode:     .byte 1    ; режим состояния
+00006f                           button:   .byte 1    ; событие нажатия кнопки: 0 - нет события; 1 - была нажата и отжата.
+000070                           key_state:.byte 1    ; состояние обработчика нажатия кнопки: 
+                                                      ;     0 - ожидание: начальное значение - устанавл. обработчик key_process
+                                                      ;     1 - событие обработчика прерывания - произошло изменение входа INT0 - начало обработки дребезга контактов
+                                                      ;     2 - событие обработчика прерывания - обработка дребезга контактов и определение состояния кнопки
+                                                      ;         устанавл. обработчик key_process
+000071                           pwr_volatile:.byte 1 ; событие изменения состояния контрольного сигнала PW_OK
+                                                      ;     0 - ожидание: нет события;
+                                                      ;     1 - событие - состояние изменилось
+000072                           pwr_state:.byte 1    ; состояние входа контрольного сигнала PW_OK
+                                                      ;     0 - нет напряжения;
+                                                      ;     1 - есть напряжение
+000073                           snd_err_stat:.byte 1 ; звуковое статус: 0 - звучание; 1 - пауза.
+000074                           snd_err_mode:.byte 1 ; звуковой режим: 0 - отключен; 1 - БП не включился; 2 - БП самопроизвольно отключился
+                                 ;==============================================================================================
+                                 ;                                   Код ошибки
+                                 ;==============================================================================================
+                                 ; Коды ошибок:
+                                 ; 0 - нет ошибки; 
+                                 ; 1 - БП не запустился; 
+                                 ; 2 - БП - не отключился; 
+                                 ; 3 - БП самопроизвольно отключился
+                                 ;==============================================================================================
+000075                           error:    .byte 1 
+                                 .ifdef _DEBUG_
+                                 .endif
+                                 
+                                 .CSEG              
+                                 .ORG 0
+                                 ;===========================================================================================
+                                 ;                           Сброс и векторы прерываний
+                                 ;===========================================================================================
+000000 c077                      	rjmp start
+000001 c17e                      	rjmp _int0
+000002 c18f                      	rjmp pcint
+000003 c150                      	rjmp tim_ovo
+000004 c19d                      	rjmp ee_rdy
+000005 c19c                      	rjmp ana_comp
+000006 c19b                      	rjmp tim_compa
+000007 c19a                      	rjmp tim_compb
+000008 c199                      	rjmp watch_dog
+000009 c198                      	rjmp ADConv
+                                 
+                                 
+                                 .INCLUDE "calls.asm"
+                                 
+                                  * calls.asm
+                                  *
+                                  *  Created: 30.10.2019 17:00:56
+                                  *   Author: vp
+                                  */ 
+                                 .CSEG              
+                                 
+                                     ;=====================================================
+                                     ;          ПП   инициализации таймеров
+                                     ;=====================================================
+                                 _set_timer_proc_:
+00000a 2322                          tst r18
+00000b f431                          brne _set_timer_start
+                                     ;=====================================================
+                                     ;   иницирование нового таймера со сбросом старого 
+                                     ;=====================================================
+00000c 94f8                          cli
+00000d 932d                          st X+, r18    ; обнулить флаг таймера - запрет немедленного выполнения таймера
+00000e 930d                          st X+, r16    ; инициализировать мл. байт значения таймера
+00000f 931c                          st X,  r17    ; инициализировать ст. байт значения таймера
+000010 9478                          sei
+000011 c006                          rjmp _set_timer_return
+                                     ;=====================================================
+                                     ;           иницирование нового таймера 
+                                     ;        вместо уже отработавшего старого 
+                                     ;=====================================================
+                                 _set_timer_start:
+000012 9613                          adiw X, 3
+000013 94f8                          cli
+000014 931e                          st -X, r17    ; инициализировать ст. байт значения таймера 
+000015 930e                          st -X, r16    ; инициализировать мл. байт значения таймера 
+000016 932e                          st -X, r18    ; установить флаг таймера - немедленный запуск таймера с новыми параметрами
+000017 9478                          sei
+                                 _set_timer_return:
+000018 9508                          ret
+                                 
+                                     ;=====================================================
+                                     ;           ПП обработки нажатия кнопки 
+                                     ; (состояние и дребезг совместно с обработчиком int0)
+                                     ;=====================================================
+                                 key_process:
+000019 9100 0070                     lds r16, key_state
+00001b 3000                          cpi r16, 0
+00001c f0f1                          breq key_process_return ; нет события
+                                     ; есть событие
+00001d 3002                          cpi r16, 2
+00001e f041                          breq key_process_ready  ; key_state == 2 - проверка таймера дребезга
+                                     ; key_state == 1
+                                     ; запуск таймера дребезга
+00001f 9503                          inc r16
+000020 9300 0070                     sts key_state, r16  ; key_state = 2
+000022 e6aa                          ldi XL, LOW(timer0Z)  
+000023 e302                          ldi r16, LOW(key_wait) 
+000024 e010                          ldi r17, HIGH(key_wait)
+000025 dfe4                          rcall _set_timer_proc_
+000026 c014                          rjmp key_process_return
+                                 key_process_ready:
+                                     ; key_state == 2
+                                     ; проверка таймера дребезга
+000027 9100 006a                     lds r16, timer0Z
+000029 3000                          cpi r16, 0
+00002a f481                          brne key_process_return
+                                     ; проверка порта PB1
+00002b b316                          in r17, pinB
+00002c e022                          ldi r18, 0x02
+00002d 2312                          and r17, r18
+00002e 9516                          lsr r17
+00002f 9310 006f                     sts button, r17
+                                 .ifdef _DEBUG_
+                                  .endif
+000031 2700                          clr r16
+000032 9300 0070                     sts key_state, r16   ; key_state = 0
+000034 e400
+000035 b71b
+000036 2b10
+000037 bf1b
+000038 b71a
+000039 2710
+00003a bf1a                          _EN_EXTINT_ r16, r17, 0x40  ; 0x40 - бит прерывания от INT0
+                                 key_process_return:
+00003b 9508                          ret
+                                 
+                                     ;==============================================================
+                                     ; ПП контроля сигнала PW_OK определяющего рабочее состоние БП 
+                                     ; (состояние совместно с обработчиком tim_ovo pcint)
+                                     ;==============================================================
+                                 pwr_ctrl_process:
+00003c 9100 0071                     lds r16, pwr_volatile   ; проверка события
+00003e 3000                          cpi r16, 0                ; в общем 1 - изменение состояния входа
+00003f f0c1                          breq pwr_ctrl_process_return    ; --> pwr_volatile == 0 - события нет, завершение
+                                     ; pwr_volatile != 0 - событие произошло
+000040 3002                          cpi r16, 2
+000041 f041                          breq pwr_ctrl_process_ready  ; pwr_volatile == 2 - проверка таймера дребезга
+                                     ; pwr_volatile == 1
+                                     ; запуск таймера дребезга
+000042 9503                          inc r16
+000043 9300 0071                     sts pwr_volatile, r16  ; pwr_volatile = 2
+000045 e6aa                          ldi XL, LOW(timer0Z)  
+000046 e302                          ldi r16, LOW(key_wait) 
+000047 e010                          ldi r17, HIGH(key_wait)
+000048 dfc1                          rcall _set_timer_proc_
+000049 c00e                          rjmp pwr_ctrl_process_return
+                                 pwr_ctrl_process_ready:
+                                     ; pwr_volatile == 2
+                                     ; проверка таймера дребезга
+00004a 9100 006a                     lds r16, timer0Z
+00004c 3000                          cpi r16, 0
+00004d f451                          brne pwr_ctrl_process_return
+                                     ; проверка состояния входа PB2 контроля сигнала PW_OK
+00004e b316                          in r17, pinB
+00004f e024                          ldi r18, 0x04
+000050 2312                          and r17, r18
+000051 9516                          lsr r17
+000052 9516                          lsr r17
+000053 9310 0072                     sts pwr_state, r17
+                                 .ifdef _DEBUG_
+                                  .endif
+000055 2700                          clr r16
+000056 9300 0071                     sts pwr_volatile, r16   ; pwr_volatile = 0
+                                 pwr_ctrl_process_return:
+000058 e200
+000059 b71b
+00005a 2b10
+00005b bf1b
+00005c b71a
+00005d 2710
+00005e bf1a                          _EN_EXTINT_ r16, r17, 0x20  ; 0x20 - бит прерывания от PCIE
+00005f 9508                          ret
+                                 
+                                     ;=====================================================
+                                     ;           ПП включение ошибки БП 
+                                     ;=====================================================
+                                 set_power_error:
+                                     ; БП не включился - сбой включения
+000060 b50f
+000061 e410
+000062 2b01
+000063 bd0f                      	_OCR0A_On_ r16, r17    ; включить звук сбоя оборудования
+000064 e6a1                          ldi XL, LOW(timer01)
+000065 ed08                          ldi r16, LOW(err_snd_time) 
+000066 e014                          ldi r17, HIGH(err_snd_time)
+000067 e021                          ldi r18, 1
+000068 dfa1                          rcall _set_timer_proc_
+                                     ; установка режима 0 состояния 0
+000069 2700                          clr r16
+00006a 9300 006e                     sts mode, r16   ; установить режим 0 состояния 0
+00006c 9300 006d                     sts state, r16  ; установить состояние 0
+00006e 9508                          ret
+                                  
+                                     ;=====================================================
+                                     ;  ПП включение таймеров звука и ожидания события 
+                                     ;=====================================================
+                                 set_sound_wait_timers:
+                                     ; запуск таймера звука
+00006f e6a1                          ldi XL, LOW(timer01)  
+000070 e70c                          ldi r16, LOW(key_snd_time) 
+000071 e010                          ldi r17, HIGH(key_snd_time)
+000072 df97                          rcall _set_timer_proc_
+                                     ; запуск таймера ожидания включения/отключения БП
+000073 e6a7                          ldi XL, LOW(timer03)  
+000074 e600                          ldi r16, LOW (time_wait) 
+000075 e113                          ldi r17, HIGH(time_wait)
+000076 df93                          rcall _set_timer_proc_
+000077 9508                          ret
+                                 
+                                 ;===========================================================================================
+                                 ;                            Инициализация программы
+                                 ;===========================================================================================
+                                 start:
+000078 e90f                      	ldi r16, low(RAMEND)
+000079 bf0d                      	out SPL, r16
+                                     ;=====================================================
+                                 	;           настройка портов ввода/вывода
+                                     ;=====================================================
+00007a e109                      	ldi r16, 0x19   ; b00011001
+00007b bb07                          out ddrB, r16	; B1,B2,B5 - входы, B0,B3,B4 - выходы
+00007c e10a                      	ldi r16, 0x1A	; b00011010 B1 с подтяжкой,B2,B5-без;B0=0,B3,B4==1
+00007d bb08                      	out portB, r16
+                                     ;=====================================================
+                                 	;     настройка предделителя тактового генератора
+                                     ;=====================================================
+                                 .ifdef _DEBUG_
+                                 .endif
+00007e e800                      	ldi r16, 0x80
+00007f e011                      	ldi r17, 0x01   ; Кдел предделителя тактового генератора = 2
+000080 bd06                      	out clkpr, r16
+000081 bd16                      	out clkpr, r17
+                                 .ifdef _DEBUG_
+                                 .endif
+                                     ;=====================================================
+                                     ;               настройка таймера
+                                     ;=====================================================
+000082 2700                      	clr r16
+000083 bf09                      	out timsk0, r16	; прерывания от таймера T0 запрещены
+000084 bd0f                      	out tccr0a, r16	; режим T0 - normal, OCR0A и OCR0B отключены от выводов 
+000085 ef0f                      	ldi r16, 0xff	;
+000086 bf06                      	out ocr0a, r16
+000087 e002                      	ldi r16, 0x02   ; Кдел предделителя T0 = 8
+000088 bf03                      	out tccr0b, r16	
+                                     ;=====================================================
+                                     ;               инициализация памяти
+                                     ;=====================================================
+000089 2722                          clr r18
+00008a 9320 0060                     sts fdel, r18    ; сброс программного делителя частоты прерывания TCNT0
+00008c 9320 006d                     sts state, r18   ; установка нулевого состояния - БП отключен
+00008e 9320 006e                     sts mode, r18    ; установка режима ожидания нажатия кнопки для включения БП
+                                     ;sts error, r18   ; установка кода ошибок с состояние "нет ошибки"
+000090 9320 006f                     sts button, r18  ; сброс события нажатия кнопки
+000092 9320 0070                     sts key_state, r18  ; сброс состояния обработчика нажатия кнопки
+000094 9320 0072                     sts pwr_state, r18  ; сброс состояния входа контроля напряжения
+000096 9320 0071                     sts pwr_volatile, r18  ; сброс состояния обработчика контроля напряжения
+                                 .ifdef _DEBUG_
+                                 .endif
+                                     ;sts snd_err_stat, r18 ; инициал. статуса
+                                     ;sts snd_err_mode, r18 ; режим выключен
+                                     ;=====================================================
+                                     ;           инициализация таймеров: отключение
+                                     ;=====================================================
+000098 9320 0061                      sts timer01, r18
+00009a 9320 0064                      sts timer02, r18
+00009c 9320 0067                      sts timer03, r18
+00009e 9320 006a                      sts timer0Z, r18
+                                     ;=====================================================
+                                     ;       задается прерывание переполнения TCNT0
+                                     ;=====================================================
+0000a0 e002                          ldi r16, 0x02       ; 0x02 - бит прерывания от переполнения TCNT0
+0000a1 b719                          in r17, timsk0
+0000a2 2b10                          or r17, r16
+0000a3 bf19                          out timsk0, r17     ; устанавливается разрешение прерывания от переполнения TCNT0
+                                     ;=====================================================
+                                     ;   задается номер прерывания PCINT2
+                                     ;=====================================================
+0000a4 e004
+0000a5 b315
+0000a6 2b10
+0000a7 bb15                          _SET_NUM_PCIE_ r16, r17, 0x04   ; 0x04 - задается номер прерывания PCINT2
+                                     ;=====================================================
+                                     ; задается режим внешнего прерывания INT0 
+                                     ; 0 - по низкому уровню
+                                     ; 1 - при любом изменении 
+                                     ; 2 - по спаду
+                                     ; 3 - по фронту
+                                     ;=====================================================
+0000a8 e001
+0000a9 b715
+0000aa 2b10
+0000ab bf15                          _MODE_INT0_ r16, r17, 1   
+                                     ;=========================================================
+                                     ; задается разрешение от внешнего прерывания INT0 и PCIE
+                                     ;=========================================================
+0000ac e600
+0000ad b71b
+0000ae 2b10
+0000af bf1b
+0000b0 b71a
+0000b1 2710
+0000b2 bf1a                          _EN_EXTINT_ r16, r17, 0x60  ; 0x40 - бит прерывания от INT0 + 0x20 - бит прерывания от PCIE
+                                     ;=====================================================
+                                     ;       Сброс флагов прерываний от таймера
+                                     ;=====================================================
+0000b3 2700                          clr r16
+0000b4 bf08                          out tifr0, r16
+0000b5 9478                          sei
+                                 ;===========================================================================================
+                                 ;                            Основная программа
+                                 ;===========================================================================================
+                                 main_loop:
+                                     ;=====================================================
+                                     ;              Определение состояния системы
+                                     ;=====================================================
+0000b6 9130 006d                     lds r19, state
+0000b8 3031                          cpi r19, 1
+0000b9 f011                          breq main_loop_state1
+0000ba d004                          rcall main_state0
+0000bb c001                          rjmp main_loop_continue
+                                 
+                                 main_loop_state1:
+0000bc d041                          rcall main_state1
+                                 
+                                 main_loop_continue:    
+0000bd d07c                          rcall main_loop_indication
+0000be cff7                          rjmp main_loop
+                                 
+                                 ;===========================================================================================
+                                 ;                           Определение попдпрограмм
+                                 ;===========================================================================================
+                                     ;=====================================================
+                                     ;          ПП   Обработка состояния 0 - "Отключен"
+                                     ;=====================================================
+                                 main_state0:
+0000bf 9130 006e                     lds r19, mode
+0000c1 3031                          cpi r19, 1
+0000c2 f011                          breq main_loop_state0_mode1
+0000c3 d003                          rcall main_state0_mode0
+0000c4 c001                          rjmp main_state0_return
+                                 
+                                 main_loop_state0_mode1:
+0000c5 d017                          rcall main_state0_mode1
+                                 
+                                 main_state0_return:
+0000c6 9508                          ret
+                                 
+                                     ;=====================================================
+                                     ;          ПП   Обработка состояния 0 - режим 0
+                                     ;=====================================================
+                                 main_state0_mode0:
+0000c7 df51                          rcall key_process   ; вызов обработчика события от кнопки
+0000c8 9100 006f                     lds r16, button
+0000ca 3001                          cpi r16, 1  ; проверка события от кнопки
+0000cb f481                          brne main_state0_mode0_return  ; если 0
+                                     ; если 1
+                                     ;=====================================================
+                                     ; Кнопка была нажата и отпущена. Переход в режим 1
+                                     ;=====================================================
+                                 ;main_state0_mode0_set_mode1:
+0000cc 2700                          clr r16
+0000cd 9300 006f                     sts button, r16 ; сброс события от кнопки
+0000cf b50f
+0000d0 e410
+0000d1 2b01
+0000d2 bd0f                          _OCR0A_On_ r16, r17 ; включить звук - звуковое подтверждение нажатия кнопки
+0000d3 e021                          ldi r18, 1    ; запустить таймеры сразу после инициализации
+                                     ; запуск таймера звука - звуковое подтверждение нажатия кнопки
+                                     ; и запуск таймера ожидания включения БП
+0000d4 df9a                          rcall set_sound_wait_timers
+                                     ;Включение БП
+0000d5 b306                          in r16, PinB
+0000d6 ef17                          ldi r17, 0xf7
+0000d7 2301                          and r16, r17
+0000d8 bb08                          out portB, r16  ; установить в 0 сигнал PS_ON БП
+                                     ; установить режим 1 состояния 0
+0000d9 e001                          ldi r16, 1
+0000da 9300 006e                     sts mode, r16
+                                 main_state0_mode0_return:
+0000dc 9508                          ret
+                                 
+                                     ;=====================================================
+                                     ;          ПП   Обработка состояния 0 - режим 1
+                                     ;=====================================================
+                                 main_state0_mode1:
+0000dd df5e                          rcall  pwr_ctrl_process  ; вызов пп контроля сигнала PW_OK
+                                     ; проверка включения БП
+0000de 9100 0072                     lds r16, pwr_state
+0000e0 3001                          cpi r16, 1                          ; 1 - сигнал PW_OK присутствует
+0000e1 f481                          brne  main_state0_mode1_off         ; 0 - отсутствует
+                                 main_state0_mode1_on:
+                                     ; БП включился
+                                     ; установка режима 0 состояния 1
+0000e2 2700                          clr r16
+0000e3 9300 006e                     sts mode, r16   ; установить режим 0 состояния 1
+0000e5 9503                          inc r16
+0000e6 9300 006d                     sts state, r16  ; установить состояние 1
+                                     ; управление светодиодом индикации включения/отключения БП
+0000e8 ee0f                          ldi r16, 0xef
+0000e9 b316                          in r17, pinB
+0000ea 2310                          and r17, r16
+0000eb bb18                          out portB, r17  ; включить светодиод
+0000ec e020                          ldi r18, 0
+0000ed 9320 0064                     sts timer02, r18 ; отключить таймер мигания светодиода 
+0000ef 9320 0067                     sts timer03, r18 ; отключить таймер ожидания включения
+0000f1 c00b                          rjmp main_state0_mode1_return
+                                 main_state0_mode1_off:
+                                     ; ожидание включения БП
+0000f2 9100 0067                     lds r16, timer03
+0000f4 3000                          cpi r16, 0
+0000f5 f439                          brne main_state0_mode1_return
+                                     ; БП не включился - сбой включения
+0000f6 9300 006e                     sts mode, r16   ; установить режим 0 состояния 0
+0000f8 b306                          in r16, PinB
+0000f9 e018                          ldi r17, 0x08
+0000fa 2b01                          or r16, r17
+0000fb bb08                          out portB, r16  ; установить в 0 сигнал PS_ON БП
+0000fc df63                          rcall set_power_error
+                                 main_state0_mode1_return:
+0000fd 9508                          ret
+                                 
+                                 ;==============================================================================
+                                 
+                                     ;=====================================================
+                                     ;          ПП   Обработка состояния 1 - "Включен"
+                                     ;=====================================================
+                                 main_state1:
+0000fe 9130 006e                     lds r19, mode
+000100 3031                          cpi r19, 1
+000101 f011                          breq main_loop_state1_mode1
+000102 d003                          rcall main_state1_mode0
+000103 c001                          rjmp main_state1_return
+                                 
+                                 main_loop_state1_mode1:
+000104 d01f                          rcall main_state1_mode1
+                                 
+                                 main_state1_return:
+000105 9508                          ret
+                                 
+                                     ;=====================================================
+                                     ;          ПП   Обработка состояния 1 - режим 0
+                                     ;=====================================================
+                                 main_state1_mode0:
+000106 df35                          rcall  pwr_ctrl_process  ; вызов пп контроля сигнала PW_OK
+                                     ; проверка работы БП
+000107 9100 0072                     lds r16, pwr_state
+000109 3001                          cpi r16, 1                          ; 1 - сигнал PW_OK присутствует
+00010a f4b1                          brne  main_state1_mode0_off         ; 0 - отсутствует
+00010b df0d                          rcall key_process   ; вызов обработчика события от кнопки
+00010c 9100 006f                     lds r16, button
+00010e 3001                          cpi r16, 1  ; проверка наличия события от кнопки
+00010f f499                          brne main_state1_mode0_return  ; если 0
+                                     ; если 1
+                                     ;=====================================================
+                                     ; Кнопка была нажата и отпущена. Переход в режим 1
+                                     ;=====================================================
+000110 2700                          clr r16
+000111 9300 006f                     sts button, r16 ; сброс события кнопки
+000113 b50f
+000114 e410
+000115 2b01
+000116 bd0f                          _OCR0A_On_ r16, r17 ; включить звук - звуковое подтверждение нажатия кнопки
+000117 e021                          ldi r18, 1    ; запустить таймеры сразу после инициализации
+                                     ; запуск таймера звука - звуковое подтверждение нажатия кнопки
+                                     ; и запуск таймера ожидания отключения БП
+000118 df56                          rcall set_sound_wait_timers
+                                     ;Отключение БП
+                                 main_state1_mode0_set_mode1:
+000119 b306                          in r16, PinB
+00011a e018                          ldi r17, 0x08
+00011b 2b01                          or r16, r17
+00011c bb08                          out portB, r16  ; установить в 0 сигнал PS_ON БП
+                                     ; установить режим 1 состояния 1
+00011d e001                          ldi r16, 1
+00011e 9300 006e                     sts mode, r16
+000120 c002                          rjmp main_state1_mode0_return
+                                 main_state1_mode0_off:
+                                     ; БП самопроизвольно отключился
+000121 df3e                          rcall set_power_error
+000122 cff6                          rjmp main_state1_mode0_set_mode1
+                                 main_state1_mode0_return:
+000123 9508                          ret
+                                 
+                                     ;=====================================================
+                                     ;          ПП   Обработка состояния 1 - режим 1
+                                     ;=====================================================
+                                 main_state1_mode1:
+000124 df17                          rcall  pwr_ctrl_process  ; вызов пп контроля сигнала PW_OK
+                                     ; проверка отключения БП
+000125 9100 0072                     lds r16, pwr_state
+000127 3000                          cpi r16, 0                          ; 0 - сигнал PW_OK отсутствует
+000128 f451                          brne  main_state1_mode1_on          ; 1 - присутствует
+                                 main_state1_mode1_off:
+                                     ; БП отключился
+                                     ; установка режима 0 состояния 0
+000129 2700                          clr r16
+00012a 9300 006e                     sts mode, r16   ; установить режим 0 состояния 0
+00012c 9300 006d                     sts state, r16  ; установить состояние 0
+                                     ; управление светодиодом индикации включения/отключения БП
+00012e ee0f                          ldi r16, 0xef
+00012f b316                          in r17, pinB
+000130 2310                          and r17, r16
+000131 bb18                          out portB, r17  ; отключить светодиод
+000132 c006                          rjmp main_state1_mode1_return
+                                 main_state1_mode1_on:
+                                     ; ожидание отключения БП
+000133 9100 0067                     lds r16, timer03
+000135 3000                          cpi r16, 0
+000136 f411                          brne main_state1_mode1_return
+                                     ; БП не отключился - сбой отключения
+000137 df28                          rcall set_power_error
+000138 cff0                          rjmp main_state1_mode1_off
+                                 main_state1_mode1_return:
+000139 9508                          ret
+                                 
+                                 ;==============================================================================
+                                 
+                                     ;=====================================================
+                                     ;                ПП  Модель индикации
+                                     ;=====================================================
+                                 main_loop_indication:
+00013a 9100 0061                     lds r16, timer01
+00013c 2300                          tst r16
+00013d f421                          brne main_loop_indication_continue
+00013e b50f
+00013f eb1f
+000140 2301
+000141 bd0f                      	_OCR0A_Off_ r16, r17    ; отключить звук
+                                 main_loop_indication_continue:
+000142 9100 006d                     lds r16, state
+000144 3000                          cpi r16, 0
+000145 f469                          brne main_loop_indication_return
+                                     ; индикация нулевого состояния сетодиодом
+000146 9100 0064                     lds r16, timer02
+000148 2300                          tst r16
+000149 f449                          brne main_loop_indication_return
+                                     ; управление светодиодом индикации включения/отключения БП
+00014a e6a4                          ldi XL, LOW(timer02)
+00014b e60c                          ldi r16, LOW(led_light_time)
+00014c e012                          ldi r17, HIGH(led_light_time)
+00014d e021                          ldi r18, 1
+00014e debb                          rcall _set_timer_proc_
+00014f e100                          ldi r16, 0x10
+000150 b316                          in r17, pinB
+000151 2710                          eor r17, r16
+000152 bb18                          out portB, r17
+                                     
+                                 main_loop_indication_return:
+000153 9508                          ret
+                                 
+                                 ;===========================================================================================
+                                 ;                            Обработчики прерываний
+                                 ;===========================================================================================
+                                 tim_ovo: 
+                                 ;=========================================================
+                                 ;     Прерывание от переполнения таймера T0
+                                 ;   прерывание реализует логику программных таймеров
+                                 ;=========================================================
+                                     ; Сохранение регистров в стеке
+000154 930f                          push r16
+000155 b70f                          in r16, sreg
+000156 930f                          push r16
+000157 93cf                          push YL
+000158 93df                          push YH
+000159 93af                          push XL
+00015a 938f                          push r24
+00015b 939f                          push r25
+                                     ;=====================================================
+                                     ;               делитель частоты на 2
+                                     ;=====================================================
+00015c e6c0                          ldi YL, low(fdel)   ; указать адрес на Кдел частоты
+00015d 27dd                          clr YH
+00015e 91a9                          ld XL, Y+   ; загрузить значение Кдел. Y указывает на 1-й байт 1-ой структуры таймеров - состояние 1-ого таймера.
+00015f 23aa                          tst XL      ; проверка четности цикла
+000160 f081                          breq tim_ovo_return   ; если 0 - пропуск счета, цикл четный
+                                     ;=====================================================
+                                     ;           Цикл проверки и работы всех таймеров
+                                     ;=====================================================
+000161 e6aa                          ldi XL, LOW( timer0Z)   ; загрузить мл. байт адреса структуры timer0Z - последняя запись таймеров
+000162 95a3                          inc XL  ; +1 для того чтобы сделать XL заведомо больше адреса timer0Z и операцию brlt не дополнять операцией breq
+                                 tim_ovo_repeat:
+000163 8188                          ld r24, Y   ; загрузить состояние текущего таймера
+000164 2388                          tst r24
+000165 f041                          breq tim_ovo_next ; если 0 - текущий таймер не включен
+000166 8189                          ldd r24, Y+1    ; загрузка значение текущего таймера - мл. байт
+000167 819a                          ldd r25, Y+2    ; загрузка значение текущего таймера - ст. байт
+000168 9701                          sbiw r24, 1     ; уменьшение значения текущего таймера
+000169 8389                          std Y+1, r24    ; сохранение значения текущего таймера - мл. байт
+00016a 839a                          std Y+2, r25    ; сохранение значения текущего таймера - ст. байт
+00016b 2b89                          or r24, r25     ; проверка на 0
+00016c f409                          brne tim_ovo_next
+00016d 8388                          st Y, r24       ; сбросить состояние текущего таймера в 0 (не активный)
+                                 tim_ovo_next:
+00016e 9623                          adiw Y, 3   ; установить адрес на следующую структуру таймера
+00016f 17ca                          cp YL, XL   ; проверить на конец таблицы таймеров. здесь XL > адреса timer0Z на 1 (timer0Z - последняя структура таймеров) 
+000170 f394                          brlt tim_ovo_repeat   ; если это не конец, то перейти к следующей записи.
+                                     ;breq tim_ovo_repeat
+                                     ;=====================================================
+                                     ;           Завешение обработки прерывания
+                                     ;=====================================================
+                                 tim_ovo_return:
+000171 9180 0060                     lds r24, fdel
+000173 e091                          ldi r25, 1
+000174 2789                          eor r24, r25
+000175 9380 0060                     sts fdel, r24
+                                     ; восстановление регистров из стека
+000177 919f                          pop r25
+000178 918f                          pop r24
+000179 91af                          pop XL
+00017a 91df                          pop YH
+00017b 91cf                          pop YL
+00017c 910f                          pop r16
+00017d bf0f                          out sreg, r16
+00017e 910f                          pop r16
+                                     
+00017f 9518                      	reti
+                                 
+                                 
+                                 _int0: 
+                                 ;=========================================================
+                                 ;  Прерывание по INT0 - обработка события от кнопки
+                                 ;        Включение или отключение устройства
+                                 ;=========================================================
+                                     ; Сохранение регистров в стеке
+000180 930f                          push r16
+000181 b70f                          in r16, sreg
+000182 930f                          push r16
+000183 931f                          push r17
+                                 
+                                     ;=========================================================
+                                     ;     key_state - состояние обработчика нажатия кнопки
+                                     ;     0 - ожидание - начальное значение - уст. обработчик key_process;
+                                     ;     1 - произошло изменение состояния входа INT0 - уст. здесь
+                                     ;     2 - обработка дребезга котактов - уст. обработчик key_process;
+                                     ;=========================================================
+000184 9100 0070                     lds r16, key_state
+000186 e001                          ldi r16, 1
+000187 9300 0070                     sts key_state, r16
+                                     ;=========================================================
+                                     ;       задается запрет от внешнего прерывания INT0
+                                     ;=========================================================
+                                 ;_int0_disable_:
+000189 e400
+00018a b71b
+00018b 2710
+00018c bf1b                          _DIS_EXTINT_ r16, r17, 0x40  ; 0x40 - бит прерывания от INT0
+                                     ; восстановление регистров из стека
+00018d 911f                          pop r17
+00018e 910f                          pop r16
+00018f bf0f                          out sreg, r16
+000190 910f                          pop r16
+                                     
+000191 9518                      	reti
+                                 
+                                 pcint: 
+                                 ;=========================================================
+                                 ;         Прерывание по PCIE2 - обработка любого 
+                                 ;             изменения состояния входа B2
+                                 ;       Слежение за контрольным сигналом устройства
+                                 ;=========================================================
+                                     ; Сохранение регистров в стеке
+000192 930f                          push r16
+000193 b70f                          in r16, sreg
+000194 930f                          push r16
+000195 931f                          push r17
+                                    
+                                     ; Пока считаю, что от напряжения питания дребезга нет, т.к. на нем емкостная нагрузка
+000196 e011                          ldi r17, 1
+000197 9310 0071                     sts pwr_volatile, r17
+                                     ;=========================================================
+                                     ;       задается запрет от внешнего прерывания PCIE2
+                                     ;=========================================================
+                                 ;_pcint_disable_:
+000199 e200
+00019a b71b
+00019b 2710
+00019c bf1b                          _DIS_EXTINT_ r16, r17, 0x20  ; 0x20 - бит прерывания от PCIE
+                                 
+                                     ; восстановление регистров из стека
+00019d 911f                          pop r17
+00019e 910f                          pop r16
+00019f bf0f                          out sreg, r16
+0001a0 910f                          pop r16
+                                     
+0001a1 9518                      	reti
+                                 
+                                 ee_rdy: 
+                                 ana_comp:
+                                 tim_compa: 
+                                 tim_compb: 
+                                 watch_dog: 
+                                 ADConv: 
+
+
+RESOURCE USE INFORMATION
+------------------------
+
+Notice:
+The register and instruction counts are symbol table hit counts,
+and hence implicitly used resources are not counted, eg, the
+'lpm' instruction without operands implicitly uses r0 and z,
+none of which are counted.
+
+x,y,z are separate entities in the symbol table and are
+counted separately from r26..r31 here.
+
+.dseg memory usage only counts static data declared with .byte
+
+"ATtiny13A" register use summary:
+x  :   7 y  :   8 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
+r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
+r13:   0 r14:   0 r15:   0 r16: 149 r17:  81 r18:  26 r19:   6 r20:   0 
+r21:   0 r22:   0 r23:   0 r24:  12 r25:   7 r26:  13 r27:   0 r28:   4 
+r29:   3 r30:   0 r31:   0 
+Registers used: 11 out of 35 (31.4%)
+
+"ATtiny13A" instruction use summary:
+.lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   2 and   :   6 
+andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   9 brge  :   0 brhc  :   0 
+brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   1 brmi  :   0 
+brne  :  14 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 cbi   :   0 cbr   :   0 clc   :   0 
+clh   :   0 cli   :   2 cln   :   0 clr   :  11 cls   :   0 clt   :   0 
+clv   :   0 clz   :   0 com   :   0 cp    :   1 cpc   :   0 cpi   :  17 
+cpse  :   0 dec   :   0 eor   :   7 icall :   0 ijmp  :   0 in    :  26 
+inc   :   4 ld    :   2 ldd   :   2 ldi   :  57 lds   :  19 lpm   :   0 
+lsl   :   0 lsr   :   3 mov   :   0 movw  :   0 neg   :   0 nop   :   0 
+or    :  12 ori   :   0 out   :  34 pop   :  13 push  :  13 rcall :  23 
+ret   :  12 reti  :   4 rjmp  :  22 rol   :   0 ror   :   0 sbc   :   0 
+sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   1 sbr   :   0 
+sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 sei   :   3 sen   :   0 
+ser   :   0 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 
+spm   :   0 st    :   7 std   :   2 sts   :  33 sub   :   0 subi  :   0 
+swap  :   0 tst   :   5 wdr   :   0 
+Instructions used: 31 out of 105 (29.5%)
+
+"ATtiny13A" memory use summary [bytes]:
+Segment   Begin    End      Code   Data   Used    Size   Use%
+---------------------------------------------------------------
+[.cseg] 0x000000 0x000346    838      0    838    1024  81.8%
+[.dseg] 0x000060 0x000076      0     22     22      64  34.4%
+[.eseg] 0x000000 0x000000      0      0      0      64   0.0%
+
+Assembly complete, 0 errors, 0 warnings
